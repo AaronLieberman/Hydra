@@ -6,7 +6,17 @@
 	xmlns:local="clr-namespace:HydraTest"
 	mc:Ignorable="d"
 	Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen">
-    <Grid>
-
-    </Grid>
+    <StackPanel HorizontalAlignment="Left">
+        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel>
+                <Rectangle Name="rectLeftButtonPressed" Width="40" Height="20" Stroke="Red" />
+                <Rectangle Name="rectLeftTriggerPressed" Width="40" Height="20" Stroke="blue" />
+            </StackPanel>
+            <StackPanel>
+                <Rectangle Name="rectRightButtonPressed" Width="40" Height="20" Stroke="Red" />
+                <Rectangle Name="rectRightTriggerPressed" Width="40" Height="20" Stroke="blue" />
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Window>

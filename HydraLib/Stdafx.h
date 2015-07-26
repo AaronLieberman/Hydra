@@ -18,3 +18,8 @@
 #include <sixense_utils/controller_manager/controller_manager.hpp>
 
 #include <deque>
+
+#include <vcclr.h>
+
+using namespace System::Runtime::InteropServices;
+using namespace System::Threading;
