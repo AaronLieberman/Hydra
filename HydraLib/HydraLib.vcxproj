@@ -74,6 +74,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Projects\SDKs\SixenseSDK_071615\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Projects\SDKs\SixenseSDK_071615\lib\x64\VS2013\debug_static;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
