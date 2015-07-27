@@ -1,21 +1,24 @@
 ﻿<Window x:Class="HydraTest.MainWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:local="clr-namespace:HydraTest"
-	mc:Ignorable="d"
-	Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen">
+    mc:Ignorable="d"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel="clr-namespace:Addle.Wpf.ViewModel;assembly=Addle.Wpf"
+    xmlns:hydraTest="clr-namespace:HydraTest"
+    d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={viewModel:AutoDesignInstance Type={x:Type hydraTest:MainWindowVM}}}"
+    Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen">
     <StackPanel HorizontalAlignment="Left">
-        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding Start}" />
         <StackPanel Orientation="Horizontal">
             <StackPanel>
-                <Rectangle Name="rectLeftButtonPressed" Width="40" Height="20" Stroke="Red" />
-                <Rectangle Name="rectLeftTriggerPressed" Width="40" Height="20" Stroke="blue" />
+                <Rectangle Width="40" Height="20" Stroke="Red" Fill="{Binding LeftButtonFill}" />
+                <Rectangle Width="40" Height="20" Stroke="blue" Fill="{Binding LeftTriggerFill}" />
             </StackPanel>
             <StackPanel>
-                <Rectangle Name="rectRightButtonPressed" Width="40" Height="20" Stroke="Red" />
-                <Rectangle Name="rectRightTriggerPressed" Width="40" Height="20" Stroke="blue" />
+                <Rectangle Width="40" Height="20" Stroke="Red" Fill="{Binding RightButtonFill}" />
+                <Rectangle Width="40" Height="20" Stroke="blue" Fill="{Binding RightTriggerFill}" />
+				<Rectangle Width="50" Height="20" Stroke="Orange" Visibility="{Binding Foo}" />
             </StackPanel>
         </StackPanel>
     </StackPanel>
