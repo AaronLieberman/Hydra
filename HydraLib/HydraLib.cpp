@@ -3,99 +3,10 @@
 #include "stdafx.h"
 
 #include "HydraLib.h"
+#include "ScopeLock.h"
+#include "HydraController.h"
 
 delegate void ControllerManagerSetupCallbackDelegate(sixenseUtils::ControllerManager::setup_step step);
-delegate void EventTriggeredDelegate();
-
-// EventTriggers are very flexible objects that can be used to check for transitions of controller state including buttons being pressed, controllers moving a certain distance,
-// or exceeding a certain velocity.
-class FlashObjectTrigger : public sixenseUtils::EventTriggerBase
-{
-private:
-
-	gcroot<EventTriggeredDelegate^> _eventTriggered;
-	int enable_for_frames;
-
-public:
-
-	FlashObjectTrigger(EventTriggeredDelegate ^eventTriggered) :
-		_eventTriggered(eventTriggered)
-	{
-	}
-
-	virtual void trigger() const
-	{
-		EventTriggeredDelegate ^eventTriggered = _eventTriggered;
-		eventTriggered();
-	}
-};
-
-ref class ScopeLock
-{
-private:
-
-	Object^ _object;
-
-public:
-
-	ScopeLock(Object ^object) :
-		_object(object)
-	{
-		Monitor::Enter(_object);
-	}
-
-	~ScopeLock()
-	{
-		Monitor::Exit(_object);
-	}
-
-};
-
-public ref class HydraController
-{
-private:
-
-	Object ^_lockObject = gcnew Object();
-	sixenseUtils::ControllerManager::controller_desc _desc;
-	sixenseUtils::ButtonStates *_lastButtonStates;
-
-internal:
-
-	void Update(sixenseAllControllerData &acd)
-	{
-		ScopeLock lock(_lockObject);
-
-		int left_index = sixenseUtils::getTheControllerManager()->getIndex(_desc);
-
-		_lastButtonStates->update(&acd.controllers[left_index]);
-	}
-
-public:
-
-	HydraController(sixenseUtils::ControllerManager::controller_desc desc) :
-		_desc(desc)
-	{
-		_lastButtonStates = new sixenseUtils::ButtonStates;
-	}
-
-	~HydraController()
-	{
-		delete _lastButtonStates;
-	}
-
-	bool ButtonJustPressed()
-	{
-		ScopeLock lock(_lockObject);
-		return _lastButtonStates->buttonJustPressed(SIXENSE_BUTTON_1);
-	}
-
-	bool TriggerJustPressed()
-	{
-		ScopeLock lock(_lockObject);
-		return _lastButtonStates->triggerJustPressed();
-	}
-
-};
 
 public ref class HydraLibrary
 {
@@ -104,6 +15,7 @@ private:
 	GCHandle _controllerManagerSetupCallbackHandle;
 	bool _controllerManagerScreenVisible = true;
 	std::string *_controllerManagerTextString;
+	Timer ^timer;
 
 	HydraController ^_leftController = gcnew HydraController(sixenseUtils::ControllerManager::P1L);
 	HydraController ^_rightController = gcnew HydraController(sixenseUtils::ControllerManager::P1R);
@@ -130,28 +42,7 @@ private:
 		}
 	}
 
-public:
-
-	HydraLibrary()
-	{
-		// Init sixense
-		sixenseInit();
-
-		// Init the controller manager. This makes sure the controllers are present, assigned to left and right hands, and that
-		// the hemisphere calibration is complete.
-		sixenseUtils::getTheControllerManager()->setGameType(sixenseUtils::ControllerManager::ONE_PLAYER_TWO_CONTROLLER);
-
-		ControllerManagerSetupCallbackDelegate ^callback = gcnew ControllerManagerSetupCallbackDelegate(this, &HydraLibrary::ControllerManagerSetupCallback);
-		_controllerManagerSetupCallbackHandle = GCHandle::Alloc(callback);
-
-		IntPtr ip = Marshal::GetFunctionPointerForDelegate(callback);
-		sixenseUtils::getTheControllerManager()->registerSetupCallback((sixenseUtils::ControllerManager::setup_callback)ip.ToPointer());
-	}
-
-	property HydraController ^LeftController { HydraController ^get() { return _leftController; } }
-	property HydraController ^RightController { HydraController ^get() { return _rightController; } }
-
-	void Update()
+	void TimerTick(Object ^state)
 	{
 		sixenseSetActiveBase(0);
 		sixenseAllControllerData acd;
@@ -184,8 +75,32 @@ public:
 	//	Console::WriteLine("triggered");
 	//}
 
+public:
+
+	HydraLibrary()
+	{
+		// Init sixense
+		sixenseInit();
+
+		// Init the controller manager. This makes sure the controllers are present, assigned to left and right hands, and that
+		// the hemisphere calibration is complete.
+		sixenseUtils::getTheControllerManager()->setGameType(sixenseUtils::ControllerManager::ONE_PLAYER_TWO_CONTROLLER);
+
+		ControllerManagerSetupCallbackDelegate ^callback = gcnew ControllerManagerSetupCallbackDelegate(this, &HydraLibrary::ControllerManagerSetupCallback);
+		_controllerManagerSetupCallbackHandle = GCHandle::Alloc(callback);
+
+		IntPtr ip = Marshal::GetFunctionPointerForDelegate(callback);
+		sixenseUtils::getTheControllerManager()->registerSetupCallback((sixenseUtils::ControllerManager::setup_callback)ip.ToPointer());
+
+		timer = gcnew Timer(gcnew TimerCallback(this, &HydraLibrary::TimerTick), nullptr, 0, 33);
+	}
+
+	property HydraController ^LeftController { HydraController ^get() { return _leftController; } }
+	property HydraController ^RightController { HydraController ^get() { return _rightController; } }
+
 	~HydraLibrary()
 	{
+		delete timer;
 		delete _leftController;
 		delete _rightController;
 		_controllerManagerSetupCallbackHandle.Free();

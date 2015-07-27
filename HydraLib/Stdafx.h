@@ -21,5 +21,6 @@
 
 #include <vcclr.h>
 
+using namespace System;
 using namespace System::Runtime::InteropServices;
 using namespace System::Threading;
