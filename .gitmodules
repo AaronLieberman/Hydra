@@ -1,0 +1,3 @@
+[submodule "external/Addle"]
+	path = external/Addle
+	url = https://github.com/AaronLieberman/Addle
