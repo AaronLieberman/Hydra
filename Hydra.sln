@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HydraLib", "HydraLib\HydraL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HydraTest", "HydraTest\HydraTest.csproj", "{9B5C4769-CC64-4808-B0CA-0F42501483DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "external\Addle\Core\Core.csproj", "{D916F4B4-0F30-433D-8534-41B80880C737}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf", "external\Addle\Wpf\Wpf.csproj", "{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,30 @@ Global
 		{9B5C4769-CC64-4808-B0CA-0F42501483DB}.Release|x64.Build.0 = Release|Any CPU
 		{9B5C4769-CC64-4808-B0CA-0F42501483DB}.Release|x86.ActiveCfg = Release|Any CPU
 		{9B5C4769-CC64-4808-B0CA-0F42501483DB}.Release|x86.Build.0 = Release|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Debug|x64.Build.0 = Debug|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Debug|x86.Build.0 = Debug|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Release|x64.ActiveCfg = Release|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Release|x64.Build.0 = Release|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Release|x86.ActiveCfg = Release|Any CPU
+		{D916F4B4-0F30-433D-8534-41B80880C737}.Release|x86.Build.0 = Release|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Debug|x64.Build.0 = Debug|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Debug|x86.Build.0 = Debug|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Release|x64.ActiveCfg = Release|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Release|x64.Build.0 = Release|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Release|x86.ActiveCfg = Release|Any CPU
+		{65665DEB-C1F3-46B2-93C4-B9DE90F8AD22}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

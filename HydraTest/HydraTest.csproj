@@ -137,6 +137,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\external\Addle\Core\Core.csproj">
+      <Project>{d916f4b4-0f30-433d-8534-41b80880c737}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\external\Addle\Wpf\Wpf.csproj">
+      <Project>{65665deb-c1f3-46b2-93c4-b9de90f8ad22}</Project>
+      <Name>Wpf</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HydraLib\HydraLib.vcxproj">
       <Project>{7591f47d-f754-496c-af51-fb9f60de71d2}</Project>
       <Name>HydraLib</Name>
